@@ -44,10 +44,16 @@ public class Hand {
     }
 
     public String cardsAsString() {
-        return cards.stream()
-                    .map(ConsoleCard::display)
-                    .collect(Collectors.joining(
+        return cards().stream()
+                      .map(ConsoleCard::display)
+                      .collect(Collectors.joining(
                             ansi().cursorUp(6).cursorRight(1).toString()));
+    }
+
+    // Query: snapshot in time,
+    //  prevent direct access to protected information (often immutable copies)
+    public List<Card> cards() {
+        return List.copyOf(cards);
     }
 
     boolean dealerMustDrawCard() {
