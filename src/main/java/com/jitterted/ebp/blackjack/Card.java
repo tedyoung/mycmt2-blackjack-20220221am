@@ -1,9 +1,5 @@
 package com.jitterted.ebp.blackjack;
 
-import org.fusesource.jansi.Ansi;
-
-import static org.fusesource.jansi.Ansi.ansi;
-
 public class Card {
     private final Suit suit;
     private final Rank rank;
@@ -17,24 +13,6 @@ public class Card {
         return rank.value();
     }
 
-    public String display() {
-        String[] lines = new String[7];
-        lines[0] = "┌─────────┐";
-        lines[1] = String.format("│%s%s       │", rank().display(), rank() == Rank.TEN ? "" : " ");
-        lines[2] = "│         │";
-        lines[3] = String.format("│    %s    │", suit().symbol());
-        lines[4] = "│         │";
-        lines[5] = String.format("│       %s%s│", rank() == Rank.TEN ? "" : " ", rank().display());
-        lines[6] = "└─────────┘";
-
-        Ansi.Color cardColor = suit().isRed() ? Ansi.Color.RED : Ansi.Color.BLACK;
-        return ansi()
-                .fg(cardColor).toString()
-                + String.join(ansi().cursorDown(1)
-                                    .cursorLeft(11)
-                                    .toString(), lines);
-    }
-
     public Suit suit() {
         return suit;
     }
@@ -43,6 +21,7 @@ public class Card {
         return rank;
     }
 
+    // for logging, troubleshooting, debugging, NOT DOMAIN
     @Override
     public String toString() {
         return "Card {" +
