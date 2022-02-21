@@ -35,12 +35,8 @@ public class Hand {
         return handValue;
     }
 
-    String displayFirstCard() {
+    String displayDealerFaceUpCard() {
         return ConsoleCard.display(cards.get(0));
-    }
-
-    boolean dealerMustDrawCard() {
-        return value() <= 16;
     }
 
     void display() {
@@ -48,6 +44,10 @@ public class Hand {
                                 .map(ConsoleCard::display)
                                 .collect(Collectors.joining(
                                         ansi().cursorUp(6).cursorRight(1).toString())));
+    }
+
+    boolean dealerMustDrawCard() {
+        return value() <= 16;
     }
 
     public void drawFrom(Deck deck) {
