@@ -35,8 +35,8 @@ public class Hand {
         return handValue;
     }
 
-    String displayDealerFaceUpCard() {
-        return ConsoleCard.display(cards.get(0));
+    public Card dealerFaceUpCard() {
+        return cards.get(0);
     }
 
     void display() {
