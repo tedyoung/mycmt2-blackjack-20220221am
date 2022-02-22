@@ -1,10 +1,5 @@
 package com.jitterted.ebp.blackjack.domain;
 
-import com.jitterted.ebp.blackjack.adapter.in.console.ConsoleCard;
-import com.jitterted.ebp.blackjack.adapter.in.console.ConsoleHand;
-
-import static org.fusesource.jansi.Ansi.ansi;
-
 public class Game {
 
     private final Deck deck;
@@ -52,30 +47,21 @@ public class Game {
         }
     }
 
-    public void displayGameState() {
-        System.out.print(ansi().eraseScreen().cursor(1, 1));
-        System.out.println("Dealer has: ");
-        System.out.println(ConsoleHand.displayDealerFaceUpCard(dealerHand)); // first card is Face Up
-
-        // second card is the hole card, which is hidden
-        ConsoleCard.displayBackOfCard();
-
-        System.out.println();
-        System.out.println("Player has: ");
-        System.out.println(ConsoleHand.cardsAsString(playerHand));
-        System.out.println(" (" + playerHand.value() + ")");
+    // "Query Method Rule":
+    // -> SNAPSHOT (point-in-time)
+    // -> PREVENT illegal change to state
+    // 0. Hand - NO - is mutable, and not a snapshot
+    // 1. Copy/clone (new Hand(dealerHand(cards()) - maybe - confusing to client
+    // 2. DTO ("HandView") - cards, dealerFaceUpCard, value - NO - JavaBean
+    // 2a. Value Object ("HandView") - query methods (Domain) - YES
+    //      Created by Hand or here in Game, depending on usage
+    // 3. Interface "read-only" Hand (not have command methods) - NO - live view
+    public Hand dealerHand() {
+        return dealerHand;
     }
 
-    public void displayFinalGameState() {
-        System.out.print(ansi().eraseScreen().cursor(1, 1));
-        System.out.println("Dealer has: ");
-        System.out.println(ConsoleHand.cardsAsString(dealerHand));
-        System.out.println(" (" + dealerHand.value() + ")");
-
-        System.out.println();
-        System.out.println("Player has: ");
-        System.out.println(ConsoleHand.cardsAsString(playerHand));
-        System.out.println(" (" + playerHand.value() + ")");
+    public Hand playerHand() {
+        return playerHand;
     }
 
 
