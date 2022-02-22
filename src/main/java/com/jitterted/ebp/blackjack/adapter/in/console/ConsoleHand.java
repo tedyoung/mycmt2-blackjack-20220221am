@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
-public class ConsoleHand {
+class ConsoleHand {
 
     // TRANSFORM Hand (domain) -> String (console-specific)
-    public static String displayDealerFaceUpCard(Hand hand) {
+    static String displayDealerFaceUpCard(Hand hand) {
         return ConsoleCard.display(hand.dealerFaceUpCard());
     }
 
-    public static String cardsAsString(Hand hand) {
+    static String cardsAsString(Hand hand) {
         return hand.cards().stream()
                    .map(ConsoleCard::display)
                    .collect(Collectors.joining(
