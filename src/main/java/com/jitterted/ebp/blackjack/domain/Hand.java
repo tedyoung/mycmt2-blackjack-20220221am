@@ -46,7 +46,11 @@ public class Hand {
         return value() <= 16;
     }
 
+    // INVARIANT: must not be busted
     public void drawFrom(Deck deck) {
+//        if (isBusted()) {
+//            throw new IllegalStateException();
+//        }
         cards.add(deck.draw());
     }
 
