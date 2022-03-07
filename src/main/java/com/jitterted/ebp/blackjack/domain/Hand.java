@@ -62,6 +62,7 @@ public class Hand {
         return hand.value() < value();
     }
 
+    // Cohere Method - solves Feature Envy
     boolean hasBlackjack() {
         return cards.size() == 2
                 && value() == 21;

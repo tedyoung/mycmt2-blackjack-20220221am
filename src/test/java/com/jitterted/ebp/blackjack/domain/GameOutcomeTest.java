@@ -30,7 +30,7 @@ class GameOutcomeTest {
     }
 
     @Test
-    public void playerDealtBlackjackUponInitialDealThenWinsBlackjack() throws Exception {
+    public void playerDealtBlackjackUponInitialDealThenWinsBlackjackAndPlayerIsDone() throws Exception {
         Game game = new Game(new StubDeck(Rank.ACE, Rank.NINE,
                                           Rank.JACK, Rank.EIGHT));
 
@@ -38,6 +38,8 @@ class GameOutcomeTest {
 
         assertThat(game.determineOutcome())
                 .isEqualByComparingTo(GameOutcome.PLAYER_WINS_BLACKJACK);
+        assertThat(game.isPlayerDone())
+                .isTrue();
     }
 
 }
