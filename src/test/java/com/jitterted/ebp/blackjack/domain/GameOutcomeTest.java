@@ -42,4 +42,16 @@ class GameOutcomeTest {
                 .isTrue();
     }
 
+    @Test
+    public void playerNotDealtBlackjackUponInitialDealThenPlayerIsNotDone() throws Exception {
+        Deck playerNotDealtBlackjack = new StubDeck(Rank.TEN, Rank.EIGHT,
+                                                    Rank.QUEEN, Rank.JACK);
+        Game game = new Game(playerNotDealtBlackjack);
+
+        game.initialDeal();
+
+        assertThat(game.isPlayerDone())
+                .isFalse();
+    }
+
 }
