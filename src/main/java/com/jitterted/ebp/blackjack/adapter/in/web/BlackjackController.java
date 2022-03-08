@@ -20,7 +20,7 @@ public class BlackjackController {
     @PostMapping("/start-game")
     public String startGame() {
         game.initialDeal();
-        return "redirect:/game";
+        return redirectBasedOnGameState();
     }
 
     @GetMapping("/game")
@@ -33,10 +33,7 @@ public class BlackjackController {
     @PostMapping("/hit")
     public String hitCommand() {
         game.playerHits();
-        if (game.isPlayerDone()) {
-            return "redirect:/done";
-        }
-        return "redirect:/game";
+        return redirectBasedOnGameState();
     }
 
     @GetMapping("/done")
@@ -49,7 +46,15 @@ public class BlackjackController {
     @PostMapping("/stand")
     public String standCommand() {
         game.playerStands();
-        return "redirect:/done";
+        return redirectBasedOnGameState();
+    }
+
+    // TRANSFORM (or MAP) Game State -> Adapter Behavior (Redirection)
+    private String redirectBasedOnGameState() {
+        if (game.isPlayerDone()) {
+            return "redirect:/done";
+        }
+        return "redirect:/game";
     }
 
 }
