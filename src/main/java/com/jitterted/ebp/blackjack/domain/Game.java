@@ -26,6 +26,7 @@ public class Game {
         dealRoundOfCards();
         if (playerHand.hasBlackjack()) {
             playerDone = true;
+            gameMonitor.roundCompleted(this);
         }
     }
 
@@ -76,7 +77,6 @@ public class Game {
     public Hand playerHand() {
         return playerHand;
     }
-
 
     public void playerHits() {
         playerHand.drawFrom(deck);
